@@ -7,20 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0d0d;
-    --surface: #161616;
-    --surface2: #1e1e1e;
-    --border: rgba(255,255,255,0.08);
-    --accent: #e8ff47;
-    --accent-dim: rgba(232,255,71,0.12);
-    --text: #f0f0f0;
-    --muted: #666;
-    --jeremy: #4a9eff;
-    --jeremy-bg: rgba(74,158,255,0.15);
-    --sara: #ff7eb3;
-    --sara-bg: rgba(255,126,179,0.15);
-    --both: #e8ff47;
-    --both-bg: rgba(232,255,71,0.12);
+    --bg: #f5f5f3;
+    --surface: #ffffff;
+    --surface2: #f0f0ee;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.18);
+    --accent: #1a1a2e;
+    --accent-dim: rgba(26,26,46,0.08);
+    --accent-highlight: #e8ff47;
+    --text: #1a1a1a;
+    --muted: #888;
+    --jeremy: #1a6fd4;
+    --jeremy-bg: rgba(26,111,212,0.1);
+    --sara: #c4327a;
+    --sara-bg: rgba(196,50,122,0.1);
+    --both: #2d7d46;
+    --both-bg: rgba(45,125,70,0.1);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,8 +52,7 @@
     letter-spacing: 0.05em;
     color: var(--accent);
   }
-
-  .logo span { color: var(--text); }
+  .logo span { color: #e8574a; }
 
   .nav-controls {
     display: flex;
@@ -65,11 +66,12 @@
     letter-spacing: 0.08em;
     min-width: 160px;
     text-align: center;
+    color: var(--text);
   }
 
   .btn {
-    background: none;
-    border: 1px solid var(--border);
+    background: var(--surface);
+    border: 1px solid var(--border2);
     color: var(--text);
     border-radius: 8px;
     padding: 6px 12px;
@@ -81,9 +83,9 @@
     align-items: center;
     gap: 5px;
   }
-  .btn:hover { border-color: rgba(255,255,255,0.25); background: var(--surface2); }
-  .btn.accent { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 500; }
-  .btn.accent:hover { background: #d4eb3a; }
+  .btn:hover { border-color: rgba(0,0,0,0.3); background: var(--surface2); }
+  .btn.accent { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 500; }
+  .btn.accent:hover { background: #2d2d4e; }
 
   .month-tabs {
     display: flex;
@@ -108,8 +110,8 @@
     white-space: nowrap;
     transition: all 0.15s;
   }
-  .month-tab:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
-  .month-tab.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  .month-tab:hover { border-color: var(--border2); color: var(--text); }
+  .month-tab.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); font-weight: 500; }
 
   .cal-wrap { padding: 1.25rem 1.5rem; max-width: 960px; margin: 0 auto; }
 
@@ -142,13 +144,12 @@
     padding: 6px;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
-    position: relative;
     overflow: hidden;
   }
-  .day-cell:hover { border-color: rgba(255,255,255,0.18); background: var(--surface2); }
+  .day-cell:hover { border-color: var(--border2); background: var(--surface2); }
   .day-cell.empty { background: transparent; border-color: transparent; cursor: default; }
-  .day-cell.today { border-color: var(--accent); }
-  .day-cell.today .day-num { color: var(--accent); }
+  .day-cell.today { border-color: #e8574a; }
+  .day-cell.today .day-num { color: #e8574a; font-weight: 500; }
 
   .day-num {
     font-size: 12px;
@@ -170,10 +171,10 @@
     font-weight: 500;
     transition: opacity 0.15s;
   }
-  .event-chip:hover { opacity: 0.8; }
-  .chip-J { background: var(--jeremy-bg); color: var(--jeremy); border: 1px solid rgba(74,158,255,0.2); }
-  .chip-S { background: var(--sara-bg); color: var(--sara); border: 1px solid rgba(255,126,179,0.2); }
-  .chip-B { background: var(--both-bg); color: var(--both); border: 1px solid rgba(232,255,71,0.2); }
+  .event-chip:hover { opacity: 0.75; }
+  .chip-J { background: var(--jeremy-bg); color: var(--jeremy); border: 1px solid rgba(26,111,212,0.2); }
+  .chip-S { background: var(--sara-bg); color: var(--sara); border: 1px solid rgba(196,50,122,0.2); }
+  .chip-B { background: var(--both-bg); color: var(--both); border: 1px solid rgba(45,125,70,0.2); }
 
   .more-label {
     font-size: 10px;
@@ -187,6 +188,7 @@
     padding: 0.75rem 1.5rem;
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
+    background: var(--surface);
   }
   .legend-item {
     display: flex;
@@ -201,11 +203,10 @@
     border-radius: 50%;
   }
 
-  /* Modal */
   .modal-bg {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -214,11 +215,12 @@
   }
   .modal {
     background: var(--surface);
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid var(--border2);
     border-radius: 12px;
     padding: 1.5rem;
     width: 100%;
     max-width: 380px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   }
   .modal-title {
     font-family: 'Bebas Neue', cursive;
@@ -239,8 +241,8 @@
   .modal label:first-of-type { margin-top: 0; }
   .modal input, .modal select, .modal textarea {
     width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
+    background: var(--surface);
+    border: 1px solid var(--border2);
     color: var(--text);
     border-radius: 8px;
     padding: 8px 11px;
@@ -250,10 +252,9 @@
     transition: border-color 0.15s;
   }
   .modal input:focus, .modal select:focus, .modal textarea:focus {
-    border-color: rgba(255,255,255,0.25);
+    border-color: var(--accent);
   }
   .modal textarea { resize: vertical; min-height: 70px; }
-  .modal select option { background: var(--surface2); }
 
   .modal-btns {
     display: flex;
@@ -261,8 +262,8 @@
     margin-top: 1.25rem;
     justify-content: flex-end;
   }
-  .btn-danger { color: #ff6b6b; border-color: rgba(255,107,107,0.3); }
-  .btn-danger:hover { background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.5); }
+  .btn-danger { color: #c0392b; border-color: rgba(192,57,43,0.3); }
+  .btn-danger:hover { background: rgba(192,57,43,0.06); border-color: rgba(192,57,43,0.5); }
 
   .status {
     font-size: 11px;
@@ -331,8 +332,7 @@ function setStatus(msg) {
   document.getElementById('statusBar').textContent = msg;
 }
 
-function monthKey(y, m) { return y + '-' + String(m + 1).padStart(2, '0'); }
-function dayKey(y, m, d) { return monthKey(y, m) + '-' + String(d).padStart(2, '0'); }
+function dayKey(y, m, d) { return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
 
 function buildTabs() {
   const c = document.getElementById('monthTabs');
@@ -395,9 +395,18 @@ function render() {
     grid.appendChild(el);
   }
 
-  // scroll active tab into view
   const activeTab = document.querySelector('.month-tab.active');
   if (activeTab) activeTab.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+
+function stayPlayField(val) {
+  return `
+    <label>Stay and Play</label>
+    <select id="mStayPlay">
+      <option value=""${!val?' selected':''}>-- Select --</option>
+      <option value="Yes"${val==='Yes'?' selected':''}>Yes</option>
+      <option value="No"${val==='No'?' selected':''}>No</option>
+    </select>`;
 }
 
 function openAdd(dateKey, d) {
@@ -413,6 +422,7 @@ function openAdd(dateKey, d) {
     </select>
     <label>Location</label>
     <input type="text" id="mLocation" placeholder="City, venue..." />
+    ${stayPlayField('')}
     <label>Notes</label>
     <textarea id="mNote" placeholder="Hotel, flight, details..."></textarea>
     <div class="modal-btns">
@@ -439,6 +449,7 @@ function openEdit(dateKey, evId) {
     </select>
     <label>Location</label>
     <input type="text" id="mLocation" value="${esc(ev.location||'')}" placeholder="City, venue..." />
+    ${stayPlayField(ev.stayPlay||'')}
     <label>Notes</label>
     <textarea id="mNote">${esc(ev.note||'')}</textarea>
     <div class="modal-btns">
@@ -449,7 +460,7 @@ function openEdit(dateKey, evId) {
   `);
 }
 
-function esc(s) { return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
 async function addEvent(dateKey) {
   const title = document.getElementById('mTitle').value.trim();
@@ -458,6 +469,7 @@ async function addEvent(dateKey) {
     title,
     who: document.getElementById('mWho').value,
     location: document.getElementById('mLocation').value.trim(),
+    stayPlay: document.getElementById('mStayPlay').value,
     note: document.getElementById('mNote').value.trim()
   };
   closeModal();
@@ -483,6 +495,7 @@ async function updateEvent(dateKey, evId) {
     title,
     who: document.getElementById('mWho').value,
     location: document.getElementById('mLocation').value.trim(),
+    stayPlay: document.getElementById('mStayPlay').value,
     note: document.getElementById('mNote').value.trim()
   };
   closeModal();
