@@ -17,12 +17,8 @@
     --accent-highlight: #e8ff47;
     --text: #1a1a1a;
     --muted: #888;
-    --jeremy: #1a6fd4;
-    --jeremy-bg: rgba(26,111,212,0.1);
     --sara: #c4327a;
     --sara-bg: rgba(196,50,122,0.1);
-    --both: #2d7d46;
-    --both-bg: rgba(45,125,70,0.1);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -172,9 +168,7 @@
     transition: opacity 0.15s;
   }
   .event-chip:hover { opacity: 0.75; }
-  .chip-J { background: var(--jeremy-bg); color: var(--jeremy); border: 1px solid rgba(26,111,212,0.2); }
   .chip-S { background: var(--sara-bg); color: var(--sara); border: 1px solid rgba(196,50,122,0.2); }
-  .chip-B { background: var(--both-bg); color: var(--both); border: 1px solid rgba(45,125,70,0.2); }
 
   .more-label {
     font-size: 10px;
@@ -292,11 +286,7 @@
   </div>
 </header>
 
-<div class="legend">
-  <span class="legend-item"><span class="legend-dot" style="background:var(--jeremy)"></span>Jeremy</span>
-  <span class="legend-item"><span class="legend-dot" style="background:var(--sara)"></span>Sara</span>
-  <span class="legend-item"><span class="legend-dot" style="background:var(--both)"></span>Both</span>
-</div>
+
 
 <div class="month-tabs" id="monthTabs"></div>
 
@@ -409,20 +399,27 @@ function stayPlayField(val) {
     </select>`;
 }
 
+function qualifierField(val) {
+  return `
+    <label>Qualifier / Bid</label>
+    <select id="mQualifier">
+      <option value=""${!val?' selected':''}>-- Select --</option>
+      <option value="Yes"${val==='Yes'?' selected':''}>Yes</option>
+      <option value="No"${val==='No'?' selected':''}>No</option>
+    </select>`;
+}
+
 function openAdd(dateKey, d) {
   showModal(`
     <div class="modal-title">Add Event — ${MONTHS[cur.m]} ${d}</div>
     <label>Title</label>
     <input type="text" id="mTitle" placeholder="Tournament, travel day, hotel check-in..." />
-    <label>Who</label>
-    <select id="mWho">
-      <option value="B">Both</option>
-      <option value="J">Jeremy</option>
-      <option value="S">Sara</option>
-    </select>
     <label>Location</label>
     <input type="text" id="mLocation" placeholder="City, venue..." />
+    <label>Tournament Fee</label>
+    <input type="text" id="mRegPrice" placeholder="e.g. $250" />
     ${stayPlayField('')}
+    ${qualifierField('')}
     <label>Notes</label>
     <textarea id="mNote" placeholder="Hotel, flight, details..."></textarea>
     <div class="modal-btns">
@@ -441,15 +438,12 @@ function openEdit(dateKey, evId) {
     <div class="modal-title">Edit Event — ${MONTHS[parseInt(parts[1]) - 1]} ${d}</div>
     <label>Title</label>
     <input type="text" id="mTitle" value="${esc(ev.title)}" />
-    <label>Who</label>
-    <select id="mWho">
-      <option value="B"${ev.who==='B'?' selected':''}>Both</option>
-      <option value="J"${ev.who==='J'?' selected':''}>Jeremy</option>
-      <option value="S"${ev.who==='S'?' selected':''}>Sara</option>
-    </select>
     <label>Location</label>
     <input type="text" id="mLocation" value="${esc(ev.location||'')}" placeholder="City, venue..." />
+    <label>Tournament Fee</label>
+    <input type="text" id="mRegPrice" value="${esc(ev.regPrice||'')}" placeholder="e.g. $250" />
     ${stayPlayField(ev.stayPlay||'')}
+    ${qualifierField(ev.qualifier||'')}
     <label>Notes</label>
     <textarea id="mNote">${esc(ev.note||'')}</textarea>
     <div class="modal-btns">
@@ -467,9 +461,11 @@ async function addEvent(dateKey) {
   if (!title) return;
   const event = {
     title,
-    who: document.getElementById('mWho').value,
+    who: 'S',
     location: document.getElementById('mLocation').value.trim(),
+    regPrice: document.getElementById('mRegPrice').value.trim(),
     stayPlay: document.getElementById('mStayPlay').value,
+    qualifier: document.getElementById('mQualifier').value,
     note: document.getElementById('mNote').value.trim()
   };
   closeModal();
@@ -493,9 +489,11 @@ async function updateEvent(dateKey, evId) {
   if (!title) return;
   const update = {
     title,
-    who: document.getElementById('mWho').value,
+    who: 'S',
     location: document.getElementById('mLocation').value.trim(),
+    regPrice: document.getElementById('mRegPrice').value.trim(),
     stayPlay: document.getElementById('mStayPlay').value,
+    qualifier: document.getElementById('mQualifier').value,
     note: document.getElementById('mNote').value.trim()
   };
   closeModal();
